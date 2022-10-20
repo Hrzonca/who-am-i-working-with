@@ -1,21 +1,20 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const formatHtml = require('./formatHtml.js');
+let formatHtml = require('./formatHtml.js');
 
 // let markDown = require('./generateMarkDown.js');
-//when application starts first you are asked about manager information
-//need to set a time delay on other employee questions based on user choice
+//asks for the mangers information
 function managerInfo() {
     return inquirer.prompt([
         {
             type: 'input',
             message: 'Who is the team meanger?',
-            name: 'manager'
+            name: 'name'
         },
         {
             type: 'input',
             message: 'What is the managers employee number?',
-            name: 'employeeNumber'
+            name: 'id'
         },
         {
             type: 'input',
@@ -28,7 +27,12 @@ function managerInfo() {
             name: 'office'
         },
     ])
+    .then ((answer) => {
+        const manager = new Manager(answer)
+        
+    })
 }
+//asking if the manager wants to add another person to the team
 function nextEmployee() {
     inquirer.prompt([
         {
@@ -40,68 +44,75 @@ function nextEmployee() {
 
         }
     ])
-    .then((answer) => {
+        //questions for an engineer
+        .then((answer) => {
             if (answer.nextEmployee === 'Engineer') {
                 return inquirer.prompt([
                     {
                         type: 'input',
                         message: 'Enter name of engineer.',
-                        name: 'engineer'
+                        name: 'name'
                     },
                     {
                         type: 'input',
                         message: 'What is their employee ID?',
-                        name: 'engineerNumber'
+                        name: 'id'
                     },
                     {
                         type: 'input',
                         message: 'Enter engineer email.',
-                        name: 'engineerMail'
+                        name: 'email'
                     },
                     {
                         type: 'input',
                         message: 'What is the engineer GitHub URL?',
-                        name: 'engineerGitHub'
+                        name: 'github'
                     }
                 ])
                     .then((answer) => {
+                        var format = formatHtml(answer);
+                        fs.appendFile('workers.html', format, (err) => err ? console.log(err) : console.log('Successfully added to workers.html'))
 
                         nextEmployee();
                     })
             }
+            //questions for an intern
             else if (answer.nextEmployee === 'Intern') {
                 return inquirer.prompt([
                     {
                         type: 'input',
                         message: 'Enter name of employee.',
-                        name: 'intern'
+                        name: 'name'
                     },
                     {
                         type: 'input',
                         message: 'What is their employee ID?',
-                        name: 'internNumber'
+                        name: 'id'
                     },
                     {
                         type: 'input',
                         message: 'Enter employee email.',
-                        name: 'internMail'
+                        name: 'email'
                     },
                     {
                         type: 'input',
                         message: 'What school does the intern attend?',
-                        name: 'internSchool'
+                        name: 'school'
                     }
                 ])
                     .then((answer) => {
+                        var format = formatHtml(answer);
+                        fs.appendFile('workers.html', format, (err) => err ? console.log(err) : console.log('Successfully added to workers.html'))
 
                         nextEmployee();
                     })
             }
+            //no more people being added to the team so the page is generated
             else if (answer.nextEmployee === 'We already have the dream team!') {
                 return generateMarkDown;
             }
         })
-
+    //formatting the html page
     function generateMarkDown() {
         var format = formatHtml();
         return `
@@ -109,4 +120,3 @@ function nextEmployee() {
         `
     }
 }
-

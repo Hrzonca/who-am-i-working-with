@@ -9,16 +9,41 @@ const formatHtml = function () {
   <title>Office Team</title>
 </head>
 <body>
+<header>Dream team</header>
 
+// Manager section 
 <section class="card">
 <div>
-<h1> ${manager} </h1>
+<h1> ${name} </h1>
 <div> 👔Manager </div>
-<div>ID: ${employeeNumber}</div>
+<div>ID: ${id}</div>
 <div href='#' class="card-link">Email: ${email}</div>
 <div>Office: ${office}</div>
 </div>
 </section>
+
+// engineer section
+<section class="card">
+<div>
+<h1> ${name} </h1>
+<div>Engineer </div>
+<div>ID: ${id}</div>
+<div href='#' class="card-link">Email: ${email}</div>
+<div>Office: ${github}</div>
+</div>
+</section>
+
+//intern section
+<section class="card">
+<div>
+<h1> ${name} </h1>
+<div> Intern </div>
+<div>ID: ${id}</div>
+<div href='#' class="card-link">Email: ${email}</div>
+<div>Office: ${school}</div>
+</div>
+</section>
+
 
 </body>
     `
