@@ -1,6 +1,9 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 let formatHtml = require('./lib/formatHtml.js');
+const Engineer = require('./lib/engineer.js');
+const Intern = require('./lib/intern');
+const Manager = require('./lib/manager');
 
 // let markDown = require('./generateMarkDown.js');
 //asks for the mangers information
