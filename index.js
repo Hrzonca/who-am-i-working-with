@@ -1,6 +1,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-let formatHtml = require('./formatHtml.js');
+let formatHtml = require('./lib/formatHtml.js');
 
 // let markDown = require('./generateMarkDown.js');
 //asks for the mangers information
