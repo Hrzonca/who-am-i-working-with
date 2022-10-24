@@ -5,6 +5,7 @@ const Engineer = require('./lib/engineer.js');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 
+let team = [];
 // let markDown = require('./generateMarkDown.js');
 //asks for the mangers information
 function managerInfo() {
@@ -30,26 +31,29 @@ function managerInfo() {
             name: 'office'
         },
     ])
-    .then ((answer) => {
-        const manager = new Manager(answer)
-        
-    })
+        .then((answer) => {
+            const manager = new Manager(answer.name, answer.id, answer.email, answer.office)
+            team.push(manager);
+
+            createTeam();
+
+        })
 }
 //asking if the manager wants to add another person to the team
-function nextEmployee() {
+function createTeam() {
     inquirer.prompt([
         {
 
             type: 'list',
             message: 'Who is on your team?',
             choices: ['Intern', 'Engineer', 'We already have the dream team!'],
-            name: 'nextEmployee'
+            name: 'role'
 
         }
     ])
         //questions for an engineer
         .then((answer) => {
-            if (answer.nextEmployee === 'Engineer') {
+            if (answer.role === 'Engineer') {
                 return inquirer.prompt([
                     {
                         type: 'input',
@@ -73,14 +77,14 @@ function nextEmployee() {
                     }
                 ])
                     .then((answer) => {
-                        var format = formatHtml(answer);
-                        fs.appendFile('workers.html', format, (err) => err ? console.log(err) : console.log('Successfully added to workers.html'))
+                        const engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
+                        team.push(engineer);
 
-                        nextEmployee();
+                        createTeam();
                     })
             }
             //questions for an intern
-            else if (answer.nextEmployee === 'Intern') {
+            else if (answer.role === 'Intern') {
                 return inquirer.prompt([
                     {
                         type: 'input',
@@ -104,22 +108,23 @@ function nextEmployee() {
                     }
                 ])
                     .then((answer) => {
-                        var format = formatHtml(answer);
-                        fs.appendFile('workers.html', format, (err) => err ? console.log(err) : console.log('Successfully added to workers.html'))
+                        const intern = new Intern(answer.name, answer.id, answer.email, answer.school);
+                        team.push(intern);
+                    
 
-                        nextEmployee();
+                        createTeam();
                     })
             }
             //no more people being added to the team so the page is generated
-            else if (answer.nextEmployee === 'We already have the dream team!') {
-                return generateMarkDown;
+            else if (answer.role === 'We already have the dream team!') {
+                return generateMarkDown();
             }
         })
     //formatting the html page
     function generateMarkDown() {
-        var format = formatHtml();
-        return `
-        ${format}
-        `
+        formatHtml(team)
+        fs.writeFile('worker.html', formatHtml(team), (err) => err ? console.log(err) : console.log('Successfully added to workers.html'));
     }
 }
+
+managerInfo();
