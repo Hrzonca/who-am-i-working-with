@@ -14,4 +14,11 @@ test('getGithub() should return "https://github.com/test"', () => {
     const g = new Engineer('test',1,'test@test.com', 'testhub')
     expect(g.getGithub()).toBe(github)
 })
-//need to do this for each method
+
+//testing that github username returns 
+test('getGithub() should return "test"', () => {
+    const github = 'testhub'
+    const g = new Engineer('test',1,'test@test.com', 'testhub')
+    expect(g.getGithub()).toBe(github)
+})
+

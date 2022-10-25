@@ -9,8 +9,15 @@ test('getRole() should return "Intern"', () => {
     })
     
 //testing that the school returns
-    test('getSchool() should return "test"', () => {
-        const school = 'test'
-        const s = new Intern('test',1,'test@test.com', 'test')
-        expect(s.getSchool()).toBe(school)
+    test('can get school via getSchool()', () => {
+        const ed = 'test'
+        const s = new Intern('test',1,'test@test.com', ed)
+        expect(s.getSchool()).toBe(ed)
     })
+
+//testing school 
+test('can set school via constructor argument', () => {
+    const school = 'test'
+    const s = new Intern('test',1,'test@test.com', school)
+    expect(s.getSchool()).toBe(school)
+})
