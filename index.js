@@ -46,7 +46,7 @@ function createTeam() {
 
             type: 'list',
             message: 'Who is on your team?',
-            choices: ['Intern', 'Engineer', 'We already have the dream team!'],
+            choices: ['Intern', 'Engineer', 'Done adding team members.'],
             name: 'role'
 
         }
@@ -116,7 +116,7 @@ function createTeam() {
                     })
             }
             //no more people being added to the team so the page is generated
-            else if (answer.role === 'We already have the dream team!') {
+            else if (answer.role === 'Done adding team members.') {
                 return generateMarkDown();
             }
         })

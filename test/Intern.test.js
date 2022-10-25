@@ -6,7 +6,7 @@ test('getRole() should return "Intern"', () => {
     expect(i.getRole()).toBe(desiredRole)
     })
     
-    test('getSchool() should return "github.com/test"', () => {
+    test('getSchool() should return "https://github.com/test"', () => {
         const school = 'test'
         const s = new Intern('test',1,'test@test.com', 'test')
         expect(s.getSchool()).toBe(school)
