@@ -6,7 +6,7 @@ const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 
 let team = [];
-// let markDown = require('./generateMarkDown.js');
+
 //asks for the mangers information
 function managerInfo() {
     return inquirer.prompt([
